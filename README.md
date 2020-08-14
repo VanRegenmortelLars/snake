@@ -7,3 +7,4 @@ A simple snake game in C++
 - Only generate candy in free spots
 - Implement snake with dequeue
 - HEIGHT and WIDTH property of Point so Point can check if legal
+- Add const's
