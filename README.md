@@ -5,6 +5,6 @@ A simple snake game in C++
 - Implement high score
 - End game when snake hits the walls or itself
 - Only generate candy in free spots
-- Implement snake with dequeue
+- Implement snake with deque
 - HEIGHT and WIDTH property of Point so Point can check if legal
 - Add const's
