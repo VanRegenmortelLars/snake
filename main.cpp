@@ -2,11 +2,11 @@
 // Author: Van Regenmortel Lars
 // Date: August 2020
 
-#include <vector>
 #include <iostream>
 #include <termios.h>
 
 #include "point.h"
+#include "snake.h"
 
 #define LINE_TOP "\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n"
 #define LINE_MID "\u255F\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2562\n"
@@ -18,7 +18,7 @@
 #define HEIGHT 7
 #define WIDTH 7
 
-void display(std::vector<Point> snake, Point candy){
+void display(Snake snake, Point candy){
 
 	int board[HEIGHT*WIDTH] = {0};
 
@@ -46,7 +46,7 @@ void display(std::vector<Point> snake, Point candy){
 	}
 }
 
-bool move(std::vector<Point> * snake, Point * candy){
+bool move(Snake * snake, Point * candy){
 
 	char input;
 	Point head;
@@ -61,16 +61,16 @@ bool move(std::vector<Point> * snake, Point * candy){
 			return false;
 			break;
 		case 'w':
-			head = snake->front().up();
+			head = snake->up();
 			break;
 		case 's':
-			head = snake->front().down();
+			head = snake->down();
 			break;
 		case 'a':
-			head = snake->front().left();
+			head = snake->left();
 			break;
 		case 'd':
-			head = snake->front().right();
+			head = snake->right();
 			break;
 		default:
 			return true;
@@ -79,11 +79,10 @@ bool move(std::vector<Point> * snake, Point * candy){
 	// Move snake according to user input
 	// Generate new candy is eaten
 	if(head!=*candy){
-		snake->insert(snake->begin(), head);
-		snake->pop_back();
+		snake->move(head);
 	}
 	else{
-		snake->insert(snake->begin(), head);
+		snake->grow(head);
 		candy->randomize(HEIGHT, WIDTH);
 	}
 
@@ -92,7 +91,7 @@ bool move(std::vector<Point> * snake, Point * candy){
 
 void game(){
 
-	std::vector<Point> snake = {{3, 3}};
+	Snake snake = Snake({3, 3});
 
 	Point candy;
 	candy.randomize(HEIGHT, WIDTH);
