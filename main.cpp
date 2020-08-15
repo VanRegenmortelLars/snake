@@ -3,6 +3,7 @@
 // Date: August 2020
 
 #include <iostream>
+#include <string>
 #include <termios.h>
 
 #include "point.h"
@@ -11,39 +12,29 @@
 #define LINE_TOP "\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n"
 #define LINE_MID "\u255F\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2562\n"
 #define LINE_BOTTOM "\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255D\n"
-#define LINE_LEFT "\u2551"
-#define LINE_RIGHT "\u2551\n"
-#define LINE_CLEAR "\r\u255F\u2500\u2500\u2500\r"
+#define LINE_EMPTY "\u2551                     \u2551\n"
+
+#define CURSOR_MOVE(p) "\e[" + std::to_string(p.y()+4) +  ";" + std::to_string(3*p.x()+3) + "H"
 
 #define HEIGHT 7
 #define WIDTH 7
 
 void display(Snake snake, Point candy){
 
-	int board[HEIGHT*WIDTH] = {0};
-
-	board[WIDTH*candy.y()+candy.x()] = 2;
-
-	for(Point p: snake)
-		board[WIDTH*p.y()+p.x()] = 1;
-
+	// Clear board
 	std::cout << "\e[u";
-	for(int i = 0; i < HEIGHT; i++){
-		std::cout << LINE_LEFT;
-		for(int j = 0; j < WIDTH; j++){
-			switch(board[WIDTH*i+j]){
-				case 1:
-					std::cout << " \u25A1 ";
-					break;
-				case 2:
-					std::cout << " \u25A0 ";
-					break;
-				default:
-					std::cout << "   ";
-			}
-		}
-		std::cout << LINE_RIGHT;
+	for(int i = 0; i < HEIGHT; i++)
+		std::cout << LINE_EMPTY;
+
+	// Display snake
+	for(Point p: snake){
+		std::cout << CURSOR_MOVE(p);
+		std::cout << "\u25A1";
 	}
+
+	// Display candy
+	std::cout << CURSOR_MOVE(candy);
+	std::cout << "\u25A0";
 }
 
 bool move(Snake * snake, Point * candy){
@@ -53,7 +44,6 @@ bool move(Snake * snake, Point * candy){
 
 	// Read user input
 	std::cin >> input;
-	std::cout << LINE_CLEAR;
 
 	// Identify user input
 	switch(input){
@@ -109,7 +99,7 @@ int main(){
 	struct termios termios_new, termios_old;
 	tcgetattr(0, &termios_old);
 	termios_new = termios_old;
-	termios_new.c_lflag &= ~ICANON;
+	termios_new.c_lflag &= ~ICANON & ~ECHO;
 	tcsetattr(0, TCSANOW, &termios_new);
 
 	std::cout << "\e[?25l";
