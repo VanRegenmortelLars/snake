@@ -27,7 +27,7 @@ void display(Snake snake, Point candy){
 	for(Point p: snake)
 		board[WIDTH*p.y()+p.x()] = 1;
 
-	std::cout <<"\e[7A";
+	std::cout << "\e[u";
 	for(int i = 0; i < HEIGHT; i++){
 		std::cout << LINE_LEFT;
 		for(int j = 0; j < WIDTH; j++){
@@ -120,6 +120,7 @@ int main(){
 	std::cout << LINE_TOP;
 	std::cout << "\u2551      SNAKE v0.3     \u2551\n";
 	std::cout << LINE_MID;
+	std::cout << "\e[s";
 	std::cout << "\n\n\n\n\n\n\n";
 	std::cout << LINE_MID;
 	std::cout << "\u2551      Controls:      \u2551\n";
@@ -127,7 +128,6 @@ int main(){
 	std::cout << "\u2551   \u2190 a \u2190     \u2192 d \u2192   \u2551\n";
 	std::cout << "\u2551        \u2193 s \u2193        \u2551\n";
 	std::cout << LINE_BOTTOM;
-	std::cout << "\e[6A";
 
 	game();
 
@@ -140,4 +140,3 @@ int main(){
 
 	return 0;
 }
-	
