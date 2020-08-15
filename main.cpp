@@ -33,10 +33,10 @@ void display(Snake snake, Point candy){
 		for(int j = 0; j < WIDTH; j++){
 			switch(board[WIDTH*i+j]){
 				case 1:
-					std::cout << " x ";
+					std::cout << " \u25A1 ";
 					break;
 				case 2:
-					std::cout << " o ";
+					std::cout << " \u25A0 ";
 					break;
 				default:
 					std::cout << "   ";
