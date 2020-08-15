@@ -114,6 +114,9 @@ int main(){
 
 	std::cout << "\e[?25l";
 
+	std::cout << "\e[2J";
+	std::cout << "\e[H";
+
 	std::cout << LINE_TOP;
 	std::cout << "\u2551      SNAKE v0.3     \u2551\n";
 	std::cout << LINE_MID;
@@ -128,7 +131,8 @@ int main(){
 
 	game();
 
-	std::cout << "\e[6B";
+	std::cout << "\e[2J";
+	std::cout << "\e[H";
 
 	std::cout << "\e[?25h";
 
