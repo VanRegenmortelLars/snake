@@ -4,14 +4,6 @@ Snake::Snake(Point p){
 	body = {p};
 };
 
-std::deque<Point>::iterator Snake::begin(){
-	return body.begin();
-}
-
-std::deque<Point>::iterator Snake::end(){
-	return body.end();
-}
-
 void Snake::up(){
 	move(head().up());
 }

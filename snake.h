@@ -8,9 +8,6 @@ class Snake{
 public:
 	Snake(Point p);
 
-	std::deque<Point>::iterator begin();
-	std::deque<Point>::iterator end();
-
 	void up();
 	void down();
 	void left();
