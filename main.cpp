@@ -26,10 +26,16 @@ void display(Snake snake, Point candy){
 	for(int i = 0; i < HEIGHT; i++)
 		std::cout << LINE_EMPTY;
 
-	// Display snake
-	for(Point p: snake){
+	// Display snake (body)
+	for(Point p: *snake.get_body()){
 		std::cout << CURSOR_MOVE(p);
 		std::cout << "\u25A1";
+	}
+
+	// Display snake (food)
+	for(Point p: *snake.get_food()){
+		std::cout << CURSOR_MOVE(p);
+		std::cout << "\u25A3";
 	}
 
 	// Display candy
