@@ -39,40 +39,35 @@ void display(Snake snake, Point candy){
 
 bool move(Snake * snake, Point * candy){
 
-	char input;
-	Point head;
 
 	// Read user input
+	char input;
 	std::cin >> input;
 
-	// Identify user input
+	// Move snake according to user input
 	switch(input){
 		case 27:
 			return false;
 			break;
 		case 'w':
-			head = snake->up();
+			snake->up();
 			break;
 		case 's':
-			head = snake->down();
+			snake->down();
 			break;
 		case 'a':
-			head = snake->left();
+			snake->left();
 			break;
 		case 'd':
-			head = snake->right();
+			snake->right();
 			break;
 		default:
 			return true;
 	}
 
-	// Move snake according to user input
-	// Generate new candy is eaten
-	if(head!=*candy){
-		snake->move(head);
-	}
-	else{
-		snake->grow(head);
+	// Feed snake if snake eats candy
+	if(snake->head()==*candy){
+		snake->feed();
 		candy->randomize(HEIGHT, WIDTH);
 	}
 

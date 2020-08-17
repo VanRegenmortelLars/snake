@@ -11,13 +11,17 @@ public:
 	std::deque<Point>::iterator begin();
 	std::deque<Point>::iterator end();
 
-	void move(Point p);
-	void grow(Point p);
+	void up();
+	void down();
+	void left();
+	void right();
 
-	Point up() const;
-	Point down() const;
-	Point left() const;
-	Point right() const;
+	void feed();
+	Point head() const;
+
 private:
 	std::deque<Point> snake;
+	std::deque<Point> food;
+
+	void move(Point p);
 };

@@ -12,27 +12,34 @@ std::deque<Point>::iterator Snake::end(){
 	return snake.end();
 }
 
+void Snake::up(){
+	move(snake.front().up());
+}
+
+void Snake::down(){
+	move(snake.front().down());
+}
+
+void Snake::left(){
+	move(snake.front().left());
+}
+
+void Snake::right(){
+	move(snake.front().right());
+}
+
 void Snake::move(Point p){
 	snake.insert(snake.begin(), p);
-	snake.pop_back();
+	if(!food.empty() && snake.back()==food.back())
+		food.pop_back();
+	else
+		snake.pop_back();
 }
 
-void Snake::grow(Point p){
-	snake.insert(snake.begin(), p);
+Point Snake::head() const{
+	return snake.front();
 }
 
-Point Snake::up() const{
-	return snake.front().up();
-}
-
-Point Snake::down() const{
-	return snake.front().down();
-}
-
-Point Snake::left() const{
-	return snake.front().left();
-}
-
-Point Snake::right() const{
-	return snake.front().right();
+void Snake::feed(){
+	food.push_front(head());
 }
