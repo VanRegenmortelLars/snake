@@ -29,7 +29,7 @@ void Snake::right(){
 }
 
 void Snake::move(Point p){
-	body.insert(body.begin(), p);
+	body.push_front(p);
 	if(!food.empty() && body.back()==food.back())
 		food.pop_back();
 	else
