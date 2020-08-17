@@ -1,43 +1,43 @@
 #include "snake.h"
 
 Snake::Snake(Point p){
-	snake = {p};
+	body = {p};
 };
 
 std::deque<Point>::iterator Snake::begin(){
-	return snake.begin();
+	return body.begin();
 }
 
 std::deque<Point>::iterator Snake::end(){
-	return snake.end();
+	return body.end();
 }
 
 void Snake::up(){
-	move(snake.front().up());
+	move(head().up());
 }
 
 void Snake::down(){
-	move(snake.front().down());
+	move(head().down());
 }
 
 void Snake::left(){
-	move(snake.front().left());
+	move(head().left());
 }
 
 void Snake::right(){
-	move(snake.front().right());
+	move(head().right());
 }
 
 void Snake::move(Point p){
-	snake.insert(snake.begin(), p);
-	if(!food.empty() && snake.back()==food.back())
+	body.insert(body.begin(), p);
+	if(!food.empty() && body.back()==food.back())
 		food.pop_back();
 	else
-		snake.pop_back();
+		body.pop_back();
 }
 
 Point Snake::head() const{
-	return snake.front();
+	return body.front();
 }
 
 void Snake::feed(){

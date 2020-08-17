@@ -20,7 +20,7 @@ public:
 	Point head() const;
 
 private:
-	std::deque<Point> snake;
+	std::deque<Point> body;
 	std::deque<Point> food;
 
 	void move(Point p);
