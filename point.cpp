@@ -7,6 +7,7 @@
 Point::Point(int x, int y){
 	X = x;
 	Y = y;
+	srand(time(0));
 };
 
 int Point::x(){
