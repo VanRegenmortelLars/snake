@@ -74,7 +74,7 @@ bool move(Snake * snake, Point * candy){
 	// Feed snake if snake eats candy
 	if(snake->head()==*candy){
 		snake->feed();
-		candy->randomize(HEIGHT, WIDTH);
+		candy->randomize(HEIGHT, WIDTH, *snake->get_body());
 	}
 
 	return true;
@@ -85,7 +85,7 @@ void game(){
 	Snake snake = Snake({3, 3});
 
 	Point candy;
-	candy.randomize(HEIGHT, WIDTH);
+	candy.randomize(HEIGHT, WIDTH, *snake.get_body());
 
 	display(snake, candy);
 

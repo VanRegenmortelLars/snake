@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <ctime>
+#include <set>
 
 #include "point.h"
 
@@ -16,9 +17,19 @@ int Point::y(){
 	return Y;
 }
 
-void Point::randomize(int height, int width){
-	X = std::rand() % width;
-	Y = std::rand() % height;
+void Point::randomize(int height, int width, std::deque<Point> occupied){
+
+	std::set<Point> set;
+	for(int i = 0; i < width; i++)
+		for(int j = 0; j < height; j++)
+			set.insert(Point(i, j));
+
+	for(Point p: occupied)
+		set.erase(p);
+
+	std::set<Point>::iterator element = set.begin();
+	std::advance(element, std::rand() % set.size());
+	*this = *element;
 }
 
 Point Point::up() const{
@@ -43,4 +54,8 @@ bool Point::operator==(const Point that) const{
 
 bool Point::operator!=(const Point that) const{
 	return !(*this==that);
+}
+
+bool Point::operator<(const Point that) const{
+	return (Y!=that.Y) ? (Y<that.Y) : (X<that.X);
 }
