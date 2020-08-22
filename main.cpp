@@ -71,6 +71,10 @@ bool move(Snake * snake, Point * candy){
 			return true;
 	}
 
+	// End game if snake hits itself or wall
+	if(snake->hit_itself_or_wall(HEIGHT, WIDTH))
+		return false;
+
 	// Feed snake if snake eats candy
 	if(snake->head()==*candy){
 		snake->feed();

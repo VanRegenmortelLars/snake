@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "snake.h"
 
 Snake::Snake(Point p){
@@ -34,4 +36,18 @@ Point Snake::head() const{
 
 void Snake::feed(){
 	food.push_front(head());
+}
+
+bool Snake::hit_itself_or_wall(int height, int width) const{
+
+	// Verify whether snake hits itself
+	if(std::count(body.begin(), body.end(), head()) > 1)
+		return true;
+
+	// Verify whether snake hits the wall
+	if( (head().x()<0) || (head().x()>width-1) \
+		|| (head().y()<0) || (head().y()>height-1) )
+		return true;
+
+	return false;
 }
