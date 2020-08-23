@@ -8,3 +8,7 @@ OBJ = point.o snake.o main.o
 
 snake.out: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
+
+.PHONY: clean
+clean:
+	rm -f *.o snake.out
