@@ -3,7 +3,7 @@ CFLAGS=
 DEPS = point.h snake.h
 OBJ = point.o snake.o main.o 
 
-%.o: %.c $(DEPS)
+%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 snake.out: $(OBJ)
