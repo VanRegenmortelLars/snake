@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <termios.h>
+#include <unistd.h>
+#include <sys/select.h>
 
 #include "point.h"
 #include "snake.h"
@@ -41,14 +43,26 @@ void display(Snake snake, Point candy){
 	// Display candy
 	std::cout << CURSOR_MOVE(candy);
 	std::cout << "\u25A0";
+
+	std::cout << std::flush;
+}
+
+bool input_available(){
+
+	fd_set set;
+	FD_ZERO(&set);
+	FD_SET(STDIN_FILENO, &set);
+	struct timeval timeout = {1, 0};
+
+	return select(STDIN_FILENO+1, &set, NULL, NULL, &timeout);
 }
 
 bool move(Snake * snake, Point * candy){
 
-
 	// Read user input
-	char input;
-	std::cin >> input;
+	static char input;
+	if(input_available())
+		std::cin >> input;
 
 	// Move snake according to user input
 	switch(input){

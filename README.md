@@ -5,4 +5,3 @@ A simple snake game in C++
 - Implement high score
 - Add const's
 - Add instructions to install
-- Add timer before snake moves forward
